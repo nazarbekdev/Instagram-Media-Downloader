@@ -1,18 +1,20 @@
+import os
 import json
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def instadownload(link):
-
     url = "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/index"
 
-
     querystring = {"url": link}
-   
+
     headers = {
-	"X-RapidAPI-Key": "07288ad1cemsh7b0de3dd3c7c1cdp159586jsn7277d4270c26",
-	"X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com"
-}
+        "X-RapidAPI-Key": os.getenv('RapidApi-Key'),
+        "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com"
+    }
 
     response = requests.get(url, headers=headers, params=querystring)
     rest = json.loads(response.text)
