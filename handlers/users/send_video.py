@@ -13,7 +13,7 @@ from yt import youtube_data
 async def send_media(message: types.Message):
     await message.answer('Iltimos kuting!')
     time.sleep(3)
-    await message.answer('Media topilmoqda...')
+    await message.answer('🔍 Media topilmoqda...')
     link = message.text
     data = instadownload(link=link)
     if data == 'No':
