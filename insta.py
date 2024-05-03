@@ -1,5 +1,4 @@
 import os
-import json
 import requests
 from dotenv import load_dotenv
 
@@ -19,7 +18,6 @@ def instadownload(link):
     response = requests.get(url, headers=headers, params=querystring)
 
     rest = response.json()['data']['result']['video_url']
-    print('code: ', response.status_code)
     if response.status_code == 200:
         dict = {'video': rest}
         return dict
