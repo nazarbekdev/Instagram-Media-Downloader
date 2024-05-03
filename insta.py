@@ -7,54 +7,21 @@ load_dotenv()
 
 
 def instadownload(link):
-    url = "https://instagram-downloader-download-instagram-videos-stories.p.rapidapi.com/index"
+    url = "https://instagram-downloader-download-photo-video-reels-igtv.p.rapidapi.com/data"
 
     querystring = {"url": link}
 
     headers = {
-        "X-RapidAPI-Key": os.getenv('RapidApi-Key'),
-        "X-RapidAPI-Host": "instagram-downloader-download-instagram-videos-stories.p.rapidapi.com"
+        "X-RapidAPI-Key": "0209cc463cmsh53405b09542842ep1e2f69jsn82b577fa4ca4",
+        "X-RapidAPI-Host": "instagram-downloader-download-photo-video-reels-igtv.p.rapidapi.com"
     }
 
     response = requests.get(url, headers=headers, params=querystring)
-    rest = json.loads(response.text)
-    dict = {}
 
-    if 'Type' in rest.keys():
-        if rest['Type'] == 'Post-Video':
-            dict['type'] = 'video'
-            dict['media'] = rest['media']
-            return dict
-        elif rest['Type'] == 'Post-Image':
-            dict['type'] = 'image'
-            dict['media'] = rest['media']
-            return dict
-        elif rest['Type'] == 'Carousel':
-            dict['type'] = 'carousel'
-            dict['media'] = rest['media']
-            return dict
-        elif rest['stories'][0]['Type'] == 'Story-Video':
-            dict['type'] = 'story-video'
-            dict['media'] = rest['stories'][0]['media']
-            return dict
-        else:
-            return 'No'
-    elif 'stories' in rest.keys():
-        if rest['stories'][0]['Type'] == 'Story-Video':
-            dict['type'] = 'story-video'
-            dict['media'] = rest['stories'][0]['media']
-            # for i in range(len(rest['stories'])):
-            #     dict['media'] = rest['stories'][i]['media']
-            return dict
-        elif rest['stories'][0]['Type'] == 'Story-Image':
-            dict['type'] = 'story-image'
-            dict['media'] = rest['stories'][0]['media']
-            # for i in range(len(rest['stories'])):
-            #     dict['media'] = rest['stories'][i]['media']
-            return dict
+    rest = response.json()['data']['result']['video_url']
+    print('code: ', response.status_code)
+    if response.status_code == 200:
+        dict = {'video': rest}
+        return dict
     else:
         return 'No'
-#     return rest['stories']
-#
-#
-# pp(instadownload('https://www.instagram.com/stories/sherali_12_13/3144999608330379198/'))
