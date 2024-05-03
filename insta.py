@@ -11,10 +11,7 @@ def instadownload(link):
 
     querystring = {"url": link}
 
-    headers = {
-        "X-RapidAPI-Key": "0209cc463cmsh53405b09542842ep1e2f69jsn82b577fa4ca4",
-        "X-RapidAPI-Host": "instagram-downloader-download-photo-video-reels-igtv.p.rapidapi.com"
-    }
+    headers = os.getenv('header')
 
     response = requests.get(url, headers=headers, params=querystring)
 
