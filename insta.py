@@ -1,23 +1,21 @@
 import os
 import requests
 from dotenv import load_dotenv
-
 load_dotenv()
 
 
 def instadownload(link):
-    url = "https://instagram-downloader-download-photo-video-reels-igtv.p.rapidapi.com/data"
+    url = "https://instagram-downloader36.p.rapidapi.com/instagram"
 
-    querystring = {"url": link}
+    querystring = {"insta_url": link}
 
     headers = {
-        "X-RapidAPI-Key": os.getenv("RapidApi-Key"),
-        "X-RapidAPI-Host": "instagram-downloader-download-photo-video-reels-igtv.p.rapidapi.com"
+        "x-rapidapi-key": os.getenv("RapidApi-Key"),
+        "x-rapidapi-host": "instagram-downloader36.p.rapidapi.com"
     }
 
     response = requests.get(url, headers=headers, params=querystring)
-
-    rest = response.json()['data']['result']['video_url']
+    rest = response.json()['urls'][0]['download_url']
     if response.status_code == 200:
         dict = {'video': rest}
         return dict
